@@ -37,7 +37,7 @@ export default function RegisterPage() {
   }
 
   const isDuplicated = async (field, value) => {
-    const url = `/api/users/${field}/${value}/exists`
+    const url = `/api/auth/${field}/${value}/exists`
     try {
       const response = await axios.get(url)
       alert(response.data.message)
