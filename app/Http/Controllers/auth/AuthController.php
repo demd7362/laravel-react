@@ -16,7 +16,34 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login', 'register', 'checkEmail', 'checkNickname']]);
     }
-
+    /**
+     * @OA\Post(
+     *     path="/auth/login",
+     *     summary="User login",
+     *     tags={"Auth"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email", "password"},
+     *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="password123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Login successful",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."),
+     *             @OA\Property(property="token_type", type="string", example="Bearer"),
+     *             @OA\Property(property="user", type="object", ref="#/components/schemas/User")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid input"
+     *     )
+     * )
+     */
     public function checkNickname($nickname)
     {
         $validated = Validator::make(['nickname' => $nickname], [
@@ -148,6 +175,6 @@ class AuthController extends Controller
     public function logout()
     {
         JWTAuth::invalidate(JWTAuth::getToken());
-        return response()->noContent();
+        return response()->json(['message' => '로그아웃 되었습니다.']);
     }
 }

@@ -26,9 +26,9 @@ export default function RegisterPage() {
 
   const signUp = async (data) => {
     try {
-      const response = await axios.post('/api/register', data)
-      localStorage.setItem('accessToken', response.data.token)
-      localStorage.setItem('user', JSON.stringify(response.data.user))
+      const response = await axios.post('/api/auth/register', data)
+      // localStorage.setItem('token', response.data.token)
+      // localStorage.setItem('user', JSON.stringify(response.data.user))
       navigate(`/login?email=${data.email}`)
     } catch (e) {
       alert(e.response.data.message)
@@ -170,10 +170,10 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => handleDuplicateCheck('email')}
-                disabled={isChecked.nickname === 'checked'}
+                disabled={isChecked.email === 'checked'}
                 className="mt-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                {isChecked.nickname === 'checked' ? '확인 완료' : '중복 확인'}
+                {isChecked.email === 'checked' ? '확인 완료' : '중복 확인'}
               </button>
             </div>
 

@@ -18,7 +18,7 @@ export default function LoginPage() {
   const navigate = useNavigate()
 
   const onSubmit = async (data) => {
-    const response = await axios.post('/api/login', data)
+    const response = await axios.post('/api/auth/login', data)
     localStorage.setItem('token', response.data.token)
     localStorage.setItem('user', JSON.stringify(response.data.user))
     navigate('/')
