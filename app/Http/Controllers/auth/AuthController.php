@@ -18,8 +18,8 @@ class AuthController extends Controller
     }
     /**
      * @OA\Get(
-     *     path="/api/auth/nickname/{nickname}/exists",
-     *     summary="닉네임 중복 체크",
+     *     path="/auth/nickname/{nickname}/exists",
+     *     summary="닉네임 중복 검사",
      *     tags={"Auth"},
      *     @OA\Parameter(
      *         name="nickname",
@@ -77,7 +77,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/auth/email/{email}/exists",
+     *     path="/auth/email/{email}/exists",
      *     summary="이메일 중복 검사",
      *     tags={"Auth"},
      *     @OA\Parameter(
@@ -134,7 +134,7 @@ class AuthController extends Controller
     }
     /**
      * @OA\Post(
-     *     path="/api/auth/login",
+     *     path="/auth/login",
      *     summary="JWT 유저 로그인",
      *     tags={"Auth"},
      *     @OA\RequestBody(
@@ -197,7 +197,7 @@ class AuthController extends Controller
     }
     /**
      * @OA\Post(
-     *     path="/api/auth/register",
+     *     path="/auth/register",
      *     summary="회원가입",
      *     tags={"Auth"},
      *     @OA\RequestBody(
@@ -280,7 +280,7 @@ class AuthController extends Controller
     }
     /**
      * @OA\Post(
-     *     path="/api/auth/logout",
+     *     path="/auth/logout",
      *     summary="유저 로그아웃",
      *     tags={"Auth"},
      *     security={{"bearerAuth":{}}},
