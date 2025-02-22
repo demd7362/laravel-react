@@ -11,7 +11,6 @@
 - {php_path}/ext에 XDebug.dll 파일 위치
 - php path에 위치한 php.ini 파일에 XDebug 프로퍼티 추가
 
-![image.png](assets/image.png)
 
 ### PHP 네이밍 컨벤션
 
