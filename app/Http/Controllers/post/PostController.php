@@ -10,16 +10,19 @@ use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
     const PAGE_SIZE = 10;
+
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index','show']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
     }
+
     public function index()
     {
         // paginate
         // arg1 -> select *
         // arg2 -> custom query param
-        $posts = Post::latest()
+        $posts = Post::whereNull('deleted_at')
+            ->latest()
             ->paginate(self::PAGE_SIZE);
         return response()->json(compact('posts'));
     }
@@ -58,7 +61,9 @@ class PostController extends Controller
     {
         // with -> join select
         // load -> 개별 select
-        $post = Post::with('user')->find($postId);
+        $post = Post::whereNull('deleted_at')
+            ->with('user')
+            ->find($postId);
         if (!$post || $post->deleted_at) {
             return response()->json(['message' => '게시글을 찾을 수 없습니다.'], 404);
         }
@@ -72,14 +77,16 @@ class PostController extends Controller
     public function update(Request $request, $postId)
     {
         $currentUserId = auth()->id();
-        $post = Post::where('id', $postId)->first();
-        if(!$post){
+        $post = Post::where('id', $postId)
+            ->whereNull('deleted_at')
+            ->first();
+        if (!$post) {
             return response()->json(['message' => '잘못된 요청입니다.'], 400);
         }
         if ($post->user_id !== $currentUserId) {
             return response()->json(['message' => '권한이 없습니다.'], 403);
         }
-        $validated =  Validator::make($request->all(), [
+        $validated = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ], [
@@ -87,7 +94,7 @@ class PostController extends Controller
             'title.max' => '제목은 최대 255자까지 입력 가능합니다.',
             'content.required' => '내용을 입력해주세요.',
         ]);
-        if($validated->fails()){
+        if ($validated->fails()) {
             $message = $validated->errors()->first();
             return response()->json(compact('message'), 400);
         }
@@ -108,11 +115,11 @@ class PostController extends Controller
     public function destroy($postId)
     {
         $currentUserId = auth()->id();
-        $post = Post::find($postId);
+        $post = Post::whereNull('deleted_at')->find($postId);
         if (!$post || $post->deleted_at) {
             return response()->json(['message' => '게시글을 찾을 수 없습니다.'], 404);
         }
-        if($currentUserId !== $post->user_id){
+        if ($currentUserId !== $post->user_id) {
             return response()->json(['message' => '권한이 없습니다.'], 403);
         }
 

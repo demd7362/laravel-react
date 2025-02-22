@@ -20,7 +20,7 @@ class CommentController extends Controller
     public function index($postId)
     {
         $comments = Comment::where('post_id', '=', $postId)
-//            ->whereNull('deleted_at') 없어도 softDelete처리된 row는 조회되지 않음
+            ->whereNull('deleted_at')
             ->with('user')
             ->paginate(self::PAGE_SIZE);
         return response()->json(compact('comments'));
@@ -61,6 +61,7 @@ class CommentController extends Controller
         }
         $comment = Comment::where('id', $commentId)
             ->where('post_id', $postId)
+            ->whereNull('deleted_at')
             ->first();
         if (!$comment) {
             return response()->json(['message' => '존재하지 않는 댓글입니다.'], 404);
@@ -89,9 +90,6 @@ class CommentController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($postId, $commentId)
     {
         if (!$postId || !$commentId) {
@@ -99,6 +97,7 @@ class CommentController extends Controller
         }
         $comment = Comment::where('id', $commentId)
             ->where('post_id', $postId)
+            ->whereNull('deleted_at')
             ->first();
         if (!$comment) {
             return response()->json(['message' => '존재하지 않는 댓글입니다.'], 404);
@@ -111,3 +110,4 @@ class CommentController extends Controller
         return response()->json(['message' => '삭제되었습니다.']);
     }
 }
+
