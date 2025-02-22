@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('auth/login', 'login');
-    Route::get('users/email/{email}/exists', 'checkEmail');
-    Route::get('users/nickname/{nickname}/exists', 'checkNickname');
+    Route::get('auth/email/{email}/exists', 'checkEmail');
+    Route::get('auth/nickname/{nickname}/exists', 'checkNickname');
     Route::post('auth/register', 'register');
     Route::post('auth/logout', 'logout');
 });
