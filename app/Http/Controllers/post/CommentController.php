@@ -191,7 +191,7 @@ class CommentController extends Controller
      *         description="댓글 수정 성공",
      *         @OA\JsonContent(
      *             type="object",
-     *             @OA\Property(property="message", type="string", example="게시글이 수정되었습니다."),
+     *             @OA\Property(property="message", type="string", example="댓글이 수정되었습니다."),
      *             @OA\Property(
      *                 property="comment",
      *                 type="object",
