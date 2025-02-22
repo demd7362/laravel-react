@@ -33,8 +33,9 @@ export default function CommentButtonWrapper({ commentId, postId }) {
   return (
     <div className="flex space-x-2">
       <button
-          onClick={handleModifyComment}
-          className="text-blue-500 hover:text-blue-700">
+        onClick={handleModifyComment}
+        className="text-blue-500 hover:text-blue-700"
+      >
         <Pencil size={18} />
       </button>
       <button

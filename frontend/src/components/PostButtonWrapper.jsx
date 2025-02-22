@@ -6,16 +6,16 @@ export default function PostButtonWrapper() {
   const { postId } = useParams()
   const navigate = useNavigate()
   const handleDelete = async () => {
-      try {
-          await axios.delete(`/api/posts/${postId}`)
-          alert('삭제되었습니다.')
-          navigate('/posts', {replace: true})
-      } catch (e){
-          alert(e.response.data.message)
-      }
+    try {
+      await axios.delete(`/api/posts/${postId}`)
+      alert('삭제되었습니다.')
+      navigate('/posts', { replace: true })
+    } catch (e) {
+      alert(e.response.data.message)
+    }
   }
   const handleEdit = () => {
-      navigate(`/posts/write/${postId}`)
+    navigate(`/posts/write/${postId}`)
   }
 
   return (

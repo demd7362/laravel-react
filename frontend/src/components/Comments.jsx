@@ -48,7 +48,7 @@ export default function Comments({ postId }) {
           )}
         </div>
       </div>
-        <CommentInput postId={postId} mutate={mutate}/>
+      <CommentInput postId={postId} mutate={mutate} />
     </>
   )
 }

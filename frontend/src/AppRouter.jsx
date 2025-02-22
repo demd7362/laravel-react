@@ -13,7 +13,7 @@ export default function AppRouter() {
   const Write = lazy(() => import('@/pages/user/WritePage.jsx'))
   return (
     <BrowserRouter>
-      <Suspense fallback={<Loading/>}>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<Posts />} />
