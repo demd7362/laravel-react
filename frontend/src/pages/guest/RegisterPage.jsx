@@ -19,44 +19,34 @@ export default function RegisterPage() {
     clearErrors,
   } = useForm()
   const navigate = useNavigate()
-  const [isChecked, setIsChecked] = useState({ nickname: false, email: false })
+  const [isChecked, setIsChecked] = useState({
+    nickname: 'pending',
+    email: 'pending',
+  })
 
   const signUp = async (data) => {
     try {
-        const response = await axios.post('/api/register', data)
-        localStorage.setItem('accessToken', response.data.token)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-        navigate(`/login?email=${data.email}`)
-    } catch(e){
-        alert(e.response.data.message)
-        throw e
-    }
-  }
-  const isDuplicated = async (field, value) => {
-    const url = `/api/users/${field}/${value}/exists`;
-    try {
-      const response = await axios.get(url)
-      alert(response.data.message)
+      const response = await axios.post('/api/register', data)
+      localStorage.setItem('accessToken', response.data.token)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      navigate(`/login?email=${data.email}`)
     } catch (e) {
       alert(e.response.data.message)
+      throw e
     }
   }
 
-  const onSubmit = useCallback(
-    async (data) => {
-      const notCheckedElements = Object.entries(isChecked).filter(
-        ([k, v]) => !v,
-      )
-      if (notCheckedElements.length) {
-        const message =
-          converter[notCheckedElements[0][0]] + ' 중복 확인 바랍니다.'
-        alert(message)
-        return
-      }
-      signUp(data)
-    },
-    [navigate, isChecked],
-  )
+  const isDuplicated = async (field, value) => {
+    const url = `/api/users/${field}/${value}/exists`
+    try {
+      const response = await axios.get(url)
+      alert(response.data.message)
+      return false
+    } catch (e) {
+      alert(e.response.data.message)
+      return true
+    }
+  }
 
   const handleDuplicateCheck = useCallback(
     async (field) => {
@@ -75,16 +65,40 @@ export default function RegisterPage() {
             type: 'manual',
             message: `이미 사용 중인 ${converter[field]}입니다.`,
           })
-          setIsChecked((prev) => ({ ...prev, [field]: false }))
+          setIsChecked((prev) => ({ ...prev, [field]: 'duplicate' }))
         } else {
           clearErrors(field)
-          setIsChecked((prev) => ({ ...prev, [field]: true }))
+          setIsChecked((prev) => ({ ...prev, [field]: 'checked' }))
         }
       } catch (error) {
         alert('중복 확인 중 오류가 발생했습니다.')
       }
     },
-    [watch, setError, clearErrors],
+    [watch, setError, clearErrors, isDuplicated],
+  )
+
+  const handleInputChange = (field) => {
+    setIsChecked((prev) => ({ ...prev, [field]: 'pending' }))
+  }
+
+  const onSubmit = useCallback(
+    async (data) => {
+      const notCheckedElements = Object.entries(isChecked).filter(
+        ([k, v]) => v !== 'checked',
+      )
+      if (notCheckedElements.length) {
+        const message =
+          converter[notCheckedElements[0][0]] + ' 중복 확인 바랍니다.'
+        alert(message)
+        return
+      }
+      try {
+        await signUp(data)
+      } catch (error) {
+        console.error('회원가입 실패:', error)
+      }
+    },
+    [navigate, isChecked, signUp],
   )
 
   return (
@@ -125,14 +139,15 @@ export default function RegisterPage() {
                   },
                 }}
                 error={errors.nickname}
+                onChange={() => handleInputChange('nickname')}
               />
               <button
                 type="button"
                 onClick={() => handleDuplicateCheck('nickname')}
-                disabled={isChecked.nickname}
+                disabled={isChecked.nickname === 'checked'}
                 className="mt-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                중복 확인
+                {isChecked.nickname === 'checked' ? '확인 완료' : '중복 확인'}
               </button>
             </div>
 
@@ -150,14 +165,15 @@ export default function RegisterPage() {
                   },
                 }}
                 error={errors.email}
+                onChange={() => handleInputChange('email')}
               />
               <button
                 type="button"
                 onClick={() => handleDuplicateCheck('email')}
-                disabled={isChecked.email}
+                disabled={isChecked.nickname === 'checked'}
                 className="mt-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                중복 확인
+                {isChecked.nickname === 'checked' ? '확인 완료' : '중복 확인'}
               </button>
             </div>
 
