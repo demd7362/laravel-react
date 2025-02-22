@@ -87,13 +87,24 @@
 
 #### php artisan l5-swagger:generate
 
-- swagger 파일 생성ㄱ
+- swagger 파일 생성 -> http://localhost:{port}/api/documentation#/
 
 ### Eloquent setting(Eloquent method IDE autocomplete)
 
 - composer require --dev barryvdh/laravel-ide-helper
 - php artisan ide-helper:generate
 - php artisan ide-helper:models -RW
+
+#### PHPUnit
+
+- ./vendor/bin/phpunit tests -> 모든 Test 파일 실행
+- ./vendor/bin/phpunit tests/{filename}.php -> 단위 파일 실행
+
+./vendor/bin/phpunit tests/CalculatorTest.php
+
+```
+
+```
 
 ### etc
 
