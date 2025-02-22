@@ -32,6 +32,10 @@ class PostController extends Controller
         $validated = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+        ], [
+            'title.required' => '제목을 입력해주세요.',
+            'title.max' => '제목은 최대 255자까지 입력 가능합니다.',
+            'content.required' => '내용을 입력해주세요.',
         ]);
         if ($validated->fails()) {
             $message = $validated->errors()->first();
@@ -78,6 +82,10 @@ class PostController extends Controller
         $validated =  Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+        ], [
+            'title.required' => '제목을 입력해주세요.',
+            'title.max' => '제목은 최대 255자까지 입력 가능합니다.',
+            'content.required' => '내용을 입력해주세요.',
         ]);
         if($validated->fails()){
             $message = $validated->errors()->first();
