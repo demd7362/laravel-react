@@ -85,6 +85,10 @@
 
 - api.php 생성
 
+#### php artisan l5-swagger:generate
+
+- swagger 파일 생성ㄱ
+
 ### Eloquent setting(Eloquent method IDE autocomplete)
 
 - composer require --dev barryvdh/laravel-ide-helper
@@ -95,4 +99,4 @@
 
 - dd(arg): dump and die -> 객체 출력 후 프로세스 종료
 - Get-Content -Path "storage\\logs\\laravel.log" -Wait -> tail -f
-- jwt auth: https://blog.logrocket.com/implementing-jwt-authentication-laravel-11/
+- jwt ref: https://medium.com/@a3rxander/how-to-implement-jwt-authentication-in-laravel-11-26e6d7be5a41

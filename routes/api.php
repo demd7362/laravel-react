@@ -1,24 +1,30 @@
 <?php
 
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\post\CommentController;
 use App\Http\Controllers\post\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
-    Route::get('check-email', 'checkEmail');
-    Route::get('check-nickname', 'checkNickname');
+    Route::get('/users/email/{email}/exists', 'checkEmail');
+    Route::get('/users/nickname/{nickname}/exists', 'checkNickname');
     Route::post('register', 'register');
     Route::post('logout', 'logout');
 });
 
 Route::controller(PostController::class)->group(function () {
     Route::get('posts', 'index');
-    Route::get('posts/{post}', 'show');
+    Route::get('posts/{postId}', 'show');
     Route::post('posts', 'store');
-    Route::put('posts/{post}', 'update');
-    Route::delete('posts/{post}', 'destroy');
+    Route::patch('posts/{postId}', 'update');
+    Route::delete('posts/{postId}', 'destroy');
 });
 
-// TODO comment
+Route::controller(CommentController::class)->group(function () {
+    Route::get('posts/{postId}/comments', 'index');
+    Route::post('posts/{postId}/comments', 'store');
+    Route::patch('posts/{postId}/comments/{commentId}', 'update');
+    Route::delete('posts/{postId}/comments/{commentId}', 'destroy');
+});

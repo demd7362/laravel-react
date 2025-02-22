@@ -9,7 +9,7 @@ const converter = {
   email: '이메일',
   nickname: '닉네임',
 }
-export default function Register() {
+export default function RegisterPage() {
   const {
     register,
     handleSubmit,
@@ -26,25 +26,19 @@ export default function Register() {
         const response = await axios.post('/api/register', data)
         localStorage.setItem('accessToken', response.data.token)
         localStorage.setItem('user', JSON.stringify(response.data.user))
-        return true
+        navigate(`/login?email=${data.email}`)
     } catch(e){
-        return false
+        alert(e.response.data.message)
+        throw e
     }
   }
   const isDuplicated = async (field, value) => {
-    let url = '/api/'
-    if (field === 'nickname') {
-      url += `check-nickname?nickname=${value}`
-    } else {
-      url += `check-email?email=${value}`
-    }
+    const url = `/api/users/${field}/${value}/exists`;
     try {
       const response = await axios.get(url)
       alert(response.data.message)
-      return false
     } catch (e) {
       alert(e.response.data.message)
-      return true
     }
   }
 
@@ -59,12 +53,7 @@ export default function Register() {
         alert(message)
         return
       }
-      const isCreated = await signUp(data)
-      if (isCreated) {
-        navigate(`/login?email=${data.email}`)
-      } else {
-        alert('서버에서 에러가 발생했습니다.')
-      }
+      signUp(data)
     },
     [navigate, isChecked],
   )

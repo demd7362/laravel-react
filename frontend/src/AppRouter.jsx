@@ -1,19 +1,24 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import NotFound from '@/pages/common/NotFound.jsx'
+import NotFoundPage from '@/pages/common/NotFoundPage.jsx'
+import Loading from '@/components/Loading.jsx'
 
 export default function AppRouter() {
-  const Home = lazy(() => import('@/pages/guest/Home.jsx'))
-  const Posts = lazy(() => import('@/pages/guest/Posts.jsx'))
-  const Login = lazy(() => import('@/pages/guest/Login.jsx'))
-  const Register = lazy(() => import('@/pages/guest/Register.jsx'))
-  const NotFound = lazy(() => import('@/pages/common/NotFound.jsx'))
+  const Home = lazy(() => import('@/pages/guest/HomePage.jsx'))
+  const Posts = lazy(() => import('@/pages/guest/PostsPage.jsx'))
+  const Login = lazy(() => import('@/pages/guest/LoginPage.jsx'))
+  const Register = lazy(() => import('@/pages/guest/RegisterPage.jsx'))
+  const NotFound = lazy(() => import('@/pages/common/NotFoundPage.jsx'))
+  const Post = lazy(() => import('@/pages/guest/PostPage.jsx'))
+  const Write = lazy(() => import('@/pages/user/WritePage.jsx'))
   return (
     <BrowserRouter>
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loading/>}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/posts/:postId" element={<Post />} />
+          <Route path="/posts/write/:postId?" element={<Write />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />

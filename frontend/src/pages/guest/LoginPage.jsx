@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import FormInput from '@/components/FormInput.jsx'
 import { axios } from '@/utils/axios.js'
 
-export default function Login() {
+export default function LoginPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const {
     register,

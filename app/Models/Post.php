@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $title
@@ -41,8 +41,28 @@ class Post extends Model
         'title', 'content','user_id'
     ];
 
+
     public function user()
     {
+        // post user ManyToOne
         return $this->belongsTo(User::class);
+    }
+
+    public function comments(){
+        // oneToMany
+        return $this->hasMany(Comment::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($post) {
+            if ($post->isForceDeleting()) {
+                $post->comments()->delete();
+            } else {
+                $post->comments()->update(['deleted_at' => now()]);
+            }
+        });
     }
 }

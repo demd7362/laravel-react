@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $post_id
@@ -29,4 +29,9 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
+    // post_id는 가져온 post로 한번 조회 후 comments->create
+    protected $fillable = ['user_id', 'content'];
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

@@ -7,6 +7,7 @@ export default function FormInput({
   error,
   ...props
 }) {
+
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor={id} className="block text-sm font-medium text-gray-700">
