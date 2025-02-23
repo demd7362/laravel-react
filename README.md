@@ -80,7 +80,7 @@
 
 - 그 외 커맨드 나열
 
-### php artisan install:api
+#### php artisan install:api
 
 - api.php 생성
 
@@ -99,11 +99,6 @@
 - ./vendor/bin/phpunit tests -> 모든 Test 파일 실행
 - ./vendor/bin/phpunit tests/{filename}.php -> 단위 파일 실행
 
-./vendor/bin/phpunit tests/CalculatorTest.php
-
-```
-
-```
 
 ### etc
 
