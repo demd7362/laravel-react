@@ -17,6 +17,25 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register', 'checkEmail', 'checkNickname']]);
     }
 
+    /**
+     * @group Auth
+     *
+     * 닉네임 중복 검사
+     *
+     * 주어진 닉네임이 이미 존재하는지 확인합니다.
+     *
+     * @urlParam nickname string required 닉네임. Example: user123
+     *
+     * @response 200 {
+     *     "message": "사용 가능한 닉네임입니다."
+     * }
+     * @response 400 {
+     *     "message": "닉네임을 입력해주세요."
+     * }
+     * @response 409 {
+     *     "message": "이미 존재하는 닉네임입니다."
+     * }
+     */
     public function checkNickname($nickname)
     {
         $validated = Validator::make(['nickname' => $nickname], [
@@ -42,6 +61,25 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @group Auth
+     *
+     * 이메일 중복 검사
+     *
+     * 주어진 이메일이 이미 존재하는지 확인합니다.
+     *
+     * @urlParam email string required 이메일. Example: user@example.com
+     *
+     * @response 200 {
+     *     "message": "사용 가능한 이메일입니다."
+     * }
+     * @response 400 {
+     *     "message": "이메일을 입력해주세요."
+     * }
+     * @response 409 {
+     *     "message": "이미 존재하는 이메일입니다."
+     * }
+     */
     public function checkEmail($email)
     {
         $validated = Validator::make(['email' => $email], [
@@ -66,6 +104,29 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @group Auth
+     *
+     * JWT 유저 로그인
+     *
+     * 사용자 로그인을 처리하고 JWT 토큰을 반환합니다.
+     *
+     * @bodyParam email string required 이메일. Example: user@example.com
+     * @bodyParam password string required 비밀번호. Example: password123
+     *
+     * @response 200 {
+     *     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+     *     "token_type": "Bearer",
+     *     "user": {
+     *         "id": 1,
+     *         "nickname": "user123",
+     *         "email": "user@example.com"
+     *     }
+     * }
+     * @response 400 {
+     *     "message": "로그인에 실패했습니다."
+     * }
+     */
     public function login(Request $request)
     {
         $validated = Validator::make($request->all(), [
@@ -99,6 +160,28 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @group Auth
+     *
+     * 회원가입
+     *
+     * 새로운 사용자를 등록합니다.
+     *
+     * @bodyParam nickname string required 닉네임. Example: user123
+     * @bodyParam email string required 이메일. Example: user@example.com
+     * @bodyParam password string required 비밀번호. Example: password123
+     * @bodyParam confirmPassword string required 비밀번호 확인. Example: password123
+     *
+     * @response 201 {
+     *     "message": "회원가입에 성공했습니다."
+     * }
+     * @response 400 {
+     *     "message": "닉네임을 입력해주세요."
+     * }
+     * @response 409 {
+     *     "message": "이미 존재하는 이메일입니다."
+     * }
+     */
     public function register(Request $request)
     {
         $validated = Validator::make($request->all(), [
