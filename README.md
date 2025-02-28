@@ -88,6 +88,12 @@
 
 - swagger 파일 생성 -> http://localhost:{port}/api/documentation#/
 
+### Scribe(PHP API Docs)
+
+- composer require --dev knuckleswtf/scribe
+- php artisan vendor:publish --provider="Knuckles\Scribe\ScribeServiceProvider"
+- php artisan scribe:generate
+
 ### Eloquent setting(Eloquent method IDE autocomplete)
 
 - composer require --dev barryvdh/laravel-ide-helper
