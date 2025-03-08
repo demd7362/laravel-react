@@ -37,6 +37,7 @@
 #### php artisan migrate
 
 - 데이터베이스 마이그레이션을 실행하여 스키마 변경
+- --env=testing -> 테스트 DB에 생성
 
 #### php artisan make:model ModelName
 
@@ -87,6 +88,13 @@
 #### php artisan l5-swagger:generate
 
 - swagger 파일 생성 -> http://localhost:{port}/api/documentation#/
+
+#### php artisan route:list
+- --path=/api/admin -> 경로가 포함된 route만 조회
+
+#### php artisan make:migration add_to_product_qnas_table --table=product_qnas
+- --table={existing_table} -> 해당 테이블에 업데이트
+
 
 ### Scribe(PHP API Docs)
 
