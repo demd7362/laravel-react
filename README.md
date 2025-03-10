@@ -10,6 +10,25 @@
 
 - {php_path}/ext에 XDebug.dll 파일 위치
 - php path에 위치한 php.ini 파일에 XDebug 프로퍼티 추가
+- php.ini 수정
+
+[xDebug]
+zend_extension=C:\xampp\php\ext\{xdebug_dll_name.dll}
+xdebug.mode=debug
+xdebug.client_port=9000
+xdebug.client_host=localhost
+xdebug.start_with_request=yes
+xdebug.profiler_append=0
+xdebug.profiler_enable=1
+xdebug.profiler_enable_trigger=0
+xdebug.profiler_output_dir="C:\xampp\tmp"
+xdebug.profiler_output_name="cachegrind.out.%t-%s"
+xdebug.remote_enable=1
+xdebug.remote_handler="dbgp"
+xdebug.remote_host="127.0.0.1"
+xdebug.remote_port=9000
+xdebug.trace_output_dir="C:\xampp\tmp"
+
 
 
 ### PHP 네이밍 컨벤션
