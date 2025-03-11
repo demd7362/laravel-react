@@ -127,12 +127,18 @@ xdebug.trace_output_dir="C:\xampp\tmp"
 - php artisan ide-helper:generate
 - php artisan ide-helper:models -RW
 
-#### PHPUnit
+### PHPUnit
 
 - ./vendor/bin/phpunit tests -> 모든 Test 파일 실행
 - ./vendor/bin/phpunit tests/{filename}.php -> 단위 파일 실행
 
+### Filament
 
+- php artisan vendor:publish --tag=filament-config
+- php artisan make:filament-user -> 관리자 계정 생성
+- php artisan make:filament-resource {ModelName} -> Filament 리소스 생성
+- php artisan make:filament-widget {WidgetName}
+- /admin 접근 안될 시 filament.php에서 'path' => env('FILAMENT_PATH', {route_name})으로 변경해서
 ### etc
 
 - dd(arg): dump and die -> 객체 출력 후 프로세스 종료
