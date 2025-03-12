@@ -134,7 +134,8 @@ xdebug.trace_output_dir="C:\xampp\tmp"
 
 ### Filament
 
-- php artisan vendor:publish --tag=filament-config
+- php artisan vendor:publish --tag=filament-config -> config/filament.php 파일 생성
+- php artisan vendor:publish --tag=filament-views -> resources/views/vendor/filament 기본 view 파일 생성
 - php artisan make:filament-user -> 관리자 계정 생성
 - php artisan make:filament-resource {ModelName} -> Filament 리소스 생성
 - php artisan make:filament-widget {WidgetName}
