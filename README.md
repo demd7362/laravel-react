@@ -137,7 +137,7 @@ xdebug.trace_output_dir="C:\xampp\tmp"
 - php artisan vendor:publish --tag=filament-config -> config/filament.php 파일 생성
 - php artisan vendor:publish --tag=filament-views -> resources/views/vendor/filament 기본 view 파일 생성
 - php artisan make:filament-user -> 관리자 계정 생성
-- php artisan make:filament-resource {ModelName} -> Filament 리소스 생성
+- php artisan make:filament-resource {ModelName} --generate -> Filament 리소스 생성, generate -> Create, Edit, List 파일 자동 생성
 - php artisan make:filament-widget {WidgetName}
 - /admin 접근 안될 시 filament.php에서 'path' => env('FILAMENT_PATH', {route_name})으로 변경해서
 ### etc
