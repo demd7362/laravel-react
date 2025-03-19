@@ -140,6 +140,7 @@ xdebug.trace_output_dir="C:\xampp\tmp"
 - php artisan make:filament-resource {ModelName} --generate -> Filament 리소스 생성, generate -> Create, Edit, List 파일 자동 생성
 - php artisan make:filament-widget {WidgetName}
 - /admin 접근 안될 시 filament.php에서 'path' => env('FILAMENT_PATH', {route_name})으로 변경해서
+- options 콜백함수 파라미터로 지정가능한 이름 $state, $livewire, $component, $context
 ### etc
 
 - dd(arg): dump and die -> 객체 출력 후 프로세스 종료
